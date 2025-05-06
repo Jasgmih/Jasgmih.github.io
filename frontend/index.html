@@ -16,9 +16,6 @@
       font-size: 32px;
       margin-bottom: 40px;
     }
-    .upload-section {
-      margin-top: 30px;
-    }
     .button {
       display: inline-block;
       margin: 10px;
@@ -37,6 +34,24 @@
     input[type="file"] {
       display: none;
     }
+    .result-box {
+      margin-top: 40px;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: left;
+    }
+    .result-box h2 {
+      color: #444;
+    }
+    .result-box p {
+      font-size: 16px;
+      line-height: 1.6;
+    }
   </style>
 </head>
 <body>
@@ -49,10 +64,18 @@
       <input id="resumeUpload" type="file" accept=".pdf,.doc,.docx" />
     </label>
 
-    <!-- Google Drive upload (placeholder) -->
+    <!-- Google Drive upload (not yet functional) -->
     <button class="button" onclick="alert('Google Drive integration coming soon')">
       Upload from Google Drive
     </button>
+  </div>
+
+  <!-- Result Display -->
+  <div id="result" class="result-box" style="display:none;">
+    <h2>Resume Analysis Result:</h2>
+    <p><strong>Education:</strong> <span id="education"></span></p>
+    <p><strong>Work Experience:</strong> <span id="experience"></span></p>
+    <p><strong>Picture:</strong> <span id="picture"></span></p>
   </div>
 
   <script>
@@ -61,23 +84,29 @@
     uploadInput.addEventListener("change", function () {
       const file = this.files[0];
       if (file) {
-        console.log("File uploaded:", file);
-        alert(`Resume "${file.name}" selected successfully!`);
-
-        // Example: preparing to send it to a backend (not implemented)
         const formData = new FormData();
         formData.append("resume", file);
 
-        // Example fetch request (disabled for now):
-        /*
-        fetch("/upload-resume", {
+        fetch("http://127.0.0.1:5000/upload-resume", {
           method: "POST",
           body: formData,
         })
         .then(response => response.json())
-        .then(data => console.log("Upload success:", data))
-        .catch(error => console.error("Upload error:", error));
-        */
+        .then(data => {
+          alert("Resume uploaded and analyzed!");
+          console.log("Backend response:", data);
+
+          // Fill in result
+          document.getElementById("education").innerText = data.education || "Not found";
+          document.getElementById("experience").innerText = data.work_experience || "Not found";
+          document.getElementById("picture").innerText = data.picture_found ? "Found" : "Not found";
+
+          document.getElementById("result").style.display = "block";
+        })
+        .catch(error => {
+          console.error("Upload error:", error);
+          alert("There was an error uploading the resume.");
+        });
       }
     });
   </script>
