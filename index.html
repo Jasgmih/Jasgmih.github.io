@@ -46,7 +46,7 @@
     <!-- Local file upload -->
     <label class="button">
       Upload Resume (PDF/Word)
-      <input type="file" accept=".pdf,.doc,.docx" />
+      <input id="resumeUpload" type="file" accept=".pdf,.doc,.docx" />
     </label>
 
     <!-- Google Drive upload (placeholder) -->
@@ -54,5 +54,32 @@
       Upload from Google Drive
     </button>
   </div>
+
+  <script>
+    const uploadInput = document.getElementById("resumeUpload");
+
+    uploadInput.addEventListener("change", function () {
+      const file = this.files[0];
+      if (file) {
+        console.log("File uploaded:", file);
+        alert(`Resume "${file.name}" selected successfully!`);
+
+        // Example: preparing to send it to a backend (not implemented)
+        const formData = new FormData();
+        formData.append("resume", file);
+
+        // Example fetch request (disabled for now):
+        /*
+        fetch("/upload-resume", {
+          method: "POST",
+          body: formData,
+        })
+        .then(response => response.json())
+        .then(data => console.log("Upload success:", data))
+        .catch(error => console.error("Upload error:", error));
+        */
+      }
+    });
+  </script>
 </body>
 </html>
