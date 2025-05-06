@@ -2,65 +2,57 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>My First Website</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resume Customizer</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       text-align: center;
-      margin: 0;
-      padding: 0;
-      background: #f4f4f4;
+      padding: 80px;
+      background-color: #f5f5f5;
     }
-
-    header {
-      background: #333;
-      color: white;
-      padding: 1em 0;
+    h1 {
+      color: #333;
+      font-size: 32px;
+      margin-bottom: 40px;
     }
-
-    main {
-      margin-top: 2em;
+    .upload-section {
+      margin-top: 30px;
     }
-
-    button {
-      padding: 10px 20px;
+    .button {
+      display: inline-block;
       margin: 10px;
+      padding: 14px 24px;
       font-size: 16px;
-      border: none;
-      background: #007BFF;
-      color: white;
-      border-radius: 5px;
       cursor: pointer;
-    }
-
-    button:hover {
-      background: #0056b3;
-    }
-
-    footer {
-      margin-top: 3em;
-      padding: 1em;
-      background: #333;
+      border: none;
+      border-radius: 8px;
+      background-color: #4CAF50;
       color: white;
+      transition: background-color 0.3s ease;
+    }
+    .button:hover {
+      background-color: #45a049;
+    }
+    input[type="file"] {
+      display: none;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Welcome to My Website!</h1>
-  </header>
+  <h1>With one click, help you to customize your resume based on JD.</h1>
 
-  <main>
-    <p>This is a simple site hosted on GitHub Pages.</p>
-    <button onclick="alert('You clicked Button 1!')">Click Me 1</button>
-    <button onclick="alert('You clicked Button 2!')">Click Me 2</button>
-  </main>
+  <div class="upload-section">
+    <!-- Local file upload -->
+    <label class="button">
+      Upload Resume (PDF/Word)
+      <input type="file" accept=".pdf,.doc,.docx" />
+    </label>
 
-  <footer>
-    &copy; 2025 Your Name
-  </footer>
+    <!-- Google Drive upload (placeholder) -->
+    <button class="button" onclick="alert('Google Drive integration coming soon')">
+      Upload from Google Drive
+    </button>
+  </div>
 </body>
 </html>
-
-
